@@ -3,7 +3,7 @@ local ls = require("luasnip")
 local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" })
 local tex = require("luasnip-latex-snippets.snippets.tex.utils").conditions
 
-return {
+M = {
     s({ trig='beg', name='begin/end', dscr='begin/end environment (generic)'},
     fmta([[
     \begin{<>}
@@ -50,3 +50,5 @@ return {
 	{ condition = tex.in_text, show_condition = tex.in_text }),
 
 }
+
+return M

@@ -11,7 +11,7 @@ local reference_snippet_table = {
     r = ""
 }
 
-return {
+M = {
 
     --[
     -- Labels/References
@@ -34,3 +34,5 @@ return {
     i(1), i(0) })
     { condition = tex.in_text, show_condition = tex.in_text }),
 }
+
+return M
