@@ -1,7 +1,7 @@
 -- snippets for LaTeX environments
 local ls = require("luasnip")
 local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" })
-local tex = require("snippets.tex.utils").conditions
+local tex = require("luasnip-latex-snippets.snippets.tex.utils").conditions
 
 return {
     s({ trig='beg', name='begin/end', dscr='begin/end environment (generic)'},
@@ -27,6 +27,7 @@ return {
     }
     ),
     { condition = tex.in_text, show_condition = tex.in_text }),
+
     -- requires enumitem
 	s({ trig = "-e", name = "enumerate", dscr = "numbered list (enumerate)" },
     fmta([[ 
