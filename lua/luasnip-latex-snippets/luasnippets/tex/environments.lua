@@ -33,6 +33,9 @@ local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" }
 -- personal imports
 --]
 local tex = require("luasnip-latex-snippets.luasnippets.tex.utils.conditions")
+local make_condition = require("luasnip.extras.conditions").make_condition
+local in_bullets_cond = make_condition(tex.in_bullets)
+local line_begin = require("luasnip.extras.conditions.expand").line_begin
 
 M = {
     s({ trig='beg', name='begin/end', dscr='begin/end environment (generic)'},
@@ -79,6 +82,18 @@ M = {
     }
     ),
 	{ condition = tex.in_text, show_condition = tex.in_text }),
+
+    -- generate new bullet points
+	autosnippet({ trig = "--", hidden = true }, { t("\\item") },
+	{ condition = in_bullets_cond * line_begin, show_condition = in_bullets_cond * line_begin }
+	),
+	autosnippet({ trig = "!-", name = "bullet point", dscr = "bullet point with custom text" },
+	fmta([[ 
+    \item [<>]<>
+    ]],
+	{ i(1), i(0) }), 	
+	{ condition = in_bullets_cond * line_begin, show_condition = in_bullets_cond * line_begin }
+	),
 }
 
 return M

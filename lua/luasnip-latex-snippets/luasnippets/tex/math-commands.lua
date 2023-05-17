@@ -35,38 +35,83 @@ local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" }
 local tex = require("luasnip-latex-snippets.luasnippets.tex.utils.conditions")
 local auto_backslash_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").auto_backslash_snippet
 local symbol_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").symbol_snippet
+local single_command_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").single_command_snippet
 
 M = {
+    -- superscripts
+    autosnippet({ trig = "sr", wordTrig = false },
+    { t("^2") },
+    { condition = tex.in_math, show_condition = tex.in_math }),
+	autosnippet({ trig = "cb", wordTrig = false },
+    { t("^3") },
+    { condition = tex.in_math, show_condition = tex.in_math }),
+	autosnippet({ trig = "compl", wordTrig = false },
+    { t("^{c}") },
+    { condition = tex.in_math, show_condition = tex.in_math }),
+	autosnippet({ trig = "vtr", wordTrig = false },
+    { t("^{T}") },
+    { condition = tex.in_math, show_condition = tex.in_math }),
+	autosnippet({ trig = "inv", wordTrig = false },
+    { t("^{-1}") },
+    { condition = tex.in_math, show_condition = tex.in_math }),
+
 	autosnippet({ trig = "lim", name = "lim(sup|inf)", dscr = "lim(sup|inf)" },
     fmta([[ 
     \lim<><><>
     ]],
 	{c(1, { t(""), t("sup"), t("inf") }),
 	c(2, { t(""), fmta([[_{<> \to <>}]], { i(1, "n"), i(2, "\\infty") }) }),
-	i(0)}
-    ),
+	i(0)}),
 	{ condition = tex.in_math, show_condition = tex.in_math }),
+
 	autosnippet({ trig = "sum", name = "summation", dscr = "summation" },
 	fmta([[
     \sum<> <>
     ]],
     { c(1, {fmta([[_{<>}^{<>}]], {i(1, "i = 0"), i(2, "\\infty")}), t("")}), i(0) }),
-    { condition = tex.in_math, show_condition = tex.in_math }
-    ),
+    { condition = tex.in_math, show_condition = tex.in_math }),
+
 	autosnippet({ trig = "prod", name = "product", dscr = "product" },
     fmta([[
     \prod<> <>
     ]],
 	{ c(1, {fmta([[_{<>}^{<>}]], {i(1, "i = 0"), i(2, "\\infty")}), t("")}), i(0) }),
-	{ condition = tex.in_math, show_condition = tex.in_math }
-    ),
+	{ condition = tex.in_math, show_condition = tex.in_math }),
+
 	autosnippet({ trig = "cprod", name = "coproduct", dscr = "coproduct" },
     fmta([[
     \coprod<> <>
     ]],
 	{ c(1, {fmta([[_{<>}^{<>}]], {i(1, "i = 0"), i(2, "\\infty")}), t("")}), i(0) }),
-	{ condition = tex.in_math, show_condition = tex.in_math }
-    ),
+	{ condition = tex.in_math, show_condition = tex.in_math }),
+
+	autosnippet({ trig = "set", name = "set", dscr = "set" }, -- overload with set builder notation
+	fmta([[
+    \{<>\}<>
+    ]],
+	{ c(1, { r(1, ""), sn(nil, { r(1, ""), t(" \\mid "), i(2) }) }), i(0) }),
+	{ condition = tex.in_math, show_condition = tex.in_math }),
+
+	autosnippet({ trig = "nnn", name = "bigcap", dscr = "bigcap" },
+	fmta([[
+    \bigcap<> <>
+    ]],
+	{ c(1, {fmta([[_{<>}^{<>}]], {i(1, "i = 0"), i(2, "\\infty")}), t("")}), i(0) }),
+	{ condition = tex.in_math, show_condition = tex.in_math }),
+
+	autosnippet({ trig = "uuu", name = "bigcup", dscr = "bigcup" },
+    fmta([[
+    \bigcup<> <>
+    ]],
+	{ c(1, {fmta([[_{<>}^{<>}]], {i(1, "i = 0"), i(2, "\\infty")}), t("")}), i(0) }),
+    { condition = tex.in_math, show_condition = tex.in_math }),
+
+	autosnippet({ trig = "bnc", name = "binomial", dscr = "binomial (nCR)" },
+	fmta([[
+    \binom{<>}{<>}<>
+    ]],
+    { i(1), i(2), i(0) }),
+	{ condition = tex.in_math, show_condition = tex.in_math }),
 }
 
 -- Auto backslashes
@@ -137,5 +182,161 @@ for k, v in pairs(greek_specs) do
 end
 vim.list_extend(M, greek_snippets)
 
+local symbol_specs = {
+	-- operators
+	["!="] = { context = { name = "!=" }, command = [[\neq]] },
+	["<="] = { context = { name = "≤" }, command = [[\leq]] },
+	[">="] = { context = { name = "≥" }, command = [[\geq]] },
+	["<<"] = { context = { name = "<<" }, command = [[\ll]] },
+	[">>"] = { context = { name = ">>" }, command = [[\gg]] },
+	["~~"] = { context = { name = "~" }, command = [[\sim]] },
+	["~="] = { context = { name = "≈" }, command = [[\approx]] },
+	["~-"] = { context = { name = "≃" }, command = [[\simeq]] },
+	["-~"] = { context = { name = "⋍" }, command = [[\backsimeq]] },
+	["-="] = { context = { name = "≡" }, command = [[\equiv]] },
+	["=~"] = { context = { name = "≅" }, command = [[\cong]] },
+	[":="] = { context = { name = "≔" }, command = [[\definedas]] },
+	["**"] = { context = { name = "·", priority = 100 }, command = [[\cdot]] },
+	xx = { context = { name = "×" }, command = [[\times]] },
+	["!+"] = { context = { name = "⊕" }, command = [[\oplus]] },
+	["!*"] = { context = { name = "⊗" }, command = [[\otimes]] },
+	-- sets
+	NN = { context = { name = "ℕ" }, command = [[\mathbb{N}]] },
+	ZZ = { context = { name = "ℤ" }, command = [[\mathbb{Z}]] },
+	QQ = { context = { name = "ℚ" }, command = [[\mathbb{Q}]] },
+	RR = { context = { name = "ℝ" }, command = [[\mathbb{R}]] },
+	CC = { context = { name = "ℂ" }, command = [[\mathbb{C}]] },
+	OO = { context = { name = "∅" }, command = [[\emptyset]] },
+	pwr = { context = { name = "P" }, command = [[\powerset]] },
+	cc = { context = { name = "⊂" }, command = [[\subset]] },
+	cq = { context = { name = "⊆" }, command = [[\subseteq]] },
+	qq = { context = { name = "⊃" }, command = [[\supset]] },
+	qc = { context = { name = "⊇" }, command = [[\supseteq]] },
+	["\\\\\\"] = { context = { name = "⧵" }, command = [[\setminus]] },
+	Nn = { context = { name = "∩" }, command = [[\cap]] },
+	UU = { context = { name = "∪" }, command = [[\cup]] },
+	["::"] = { context = { name = ":" }, command = [[\colon]] },
+	-- quantifiers and logic stuffs
+	AA = { context = { name = "∀" }, command = [[\forall]] },
+	EE = { context = { name = "∃" }, command = [[\exists]] },
+	inn = { context = { name = "∈" }, command = [[\in]] },
+	notin = { context = { name = "∉" }, command = [[\not\in]] },
+	["!-"] = { context = { name = "¬" }, command = [[\lnot]] },
+	VV = { context = { name = "∨" }, command = [[\lor]] },
+	WW = { context = { name = "∧" }, command = [[\land]] },
+    ["!W"] = { context = { name = "∧" }, command = [[\bigwedge]] },
+	["=>"] = { context = { name = "⇒" }, command = [[\implies]] },
+	["=<"] = { context = { name = "⇐" }, command = [[\impliedby]] },
+	iff = { context = { name = "⟺" }, command = [[\iff]] },
+	["->"] = { context = { name = "→", priority = 250 }, command = [[\to]] },
+	["!>"] = { context = { name = "↦" }, command = [[\mapsto]] },
+	["<-"] = { context = { name = "↦", priority = 250}, command = [[\gets]] },
+    -- differentials 
+	dp = { context = { name = "⇐" }, command = [[\partial]] },
+	-- arrows
+	["-->"] = { context = { name = "⟶", priority = 500 }, command = [[\longrightarrow]] },
+	["<->"] = { context = { name = "↔", priority = 500 }, command = [[\leftrightarrow]] },
+	["2>"] = { context = { name = "⇉", priority = 400 }, command = [[\rightrightarrows]] },
+	upar = { context = { name = "↑" }, command = [[\uparrow]] },
+	dnar = { context = { name = "↓" }, command = [[\downarrow]] },
+	-- etc
+	ooo = { context = { name = "∞" }, command = [[\infty]] },
+	lll = { context = { name = "ℓ" }, command = [[\ell]] },
+	dag = { context = { name = "†" }, command = [[\dagger]] },
+	["+-"] = { context = { name = "†" }, command = [[\pm]] },
+	["-+"] = { context = { name = "†" }, command = [[\mp]] },
+}
+
+local symbol_snippets = {}
+for k, v in pairs(symbol_specs) do
+	table.insert(
+		symbol_snippets,
+		symbol_snippet(vim.tbl_deep_extend("keep", { trig = k }, v.context), v.command, { condition = tex.in_math })
+	)
+end
+vim.list_extend(M, symbol_snippets)
+
+local single_command_math_specs = {
+	tt = {
+		context = {
+			name = "text (math)",
+			dscr = "text in math mode",
+		},
+		command = [[\text]],
+	},
+	sbf = {
+		context = {
+			name = "symbf",
+			dscr = "bold math text",
+		},
+		command = [[\symbf]],
+	},
+	syi = {
+		context = {
+			name = "symit",
+			dscr = "italic math text",
+		},
+		command = [[\symit]],
+	},
+	udd = {
+		context = {
+			name = "underline (math)",
+			dscr = "underlined text in math mode",
+		},
+		command = [[\underline]],
+	},
+	conj = {
+		context = {
+			name = "conjugate",
+			dscr = "conjugate (overline)",
+		},
+		command = [[\overline]],
+	},
+	["__"] = {
+		context = {
+			name = "subscript",
+			dscr = "auto subscript 3",
+			wordTrig = false,
+		},
+		command = [[_]],
+	},
+	td = {
+		context = {
+			name = "superscript",
+			dscr = "auto superscript alt",
+			wordTrig = false,
+		},
+		command = [[^]],
+	},
+	sbt = {
+		context = {
+			name = "substack",
+			dscr = "substack for sums/products",
+		},
+		command = [[\substack]],
+	},
+	sq = {
+		context = {
+			name = "sqrt",
+			dscr = "sqrt",
+		},
+		command = [[\sqrt]],
+		ext = { choice = true },
+	},
+}
+
+local single_command_math_snippets = {}
+for k, v in pairs(single_command_math_specs) do
+	table.insert(
+		single_command_math_snippets,
+		single_command_snippet(
+			vim.tbl_deep_extend("keep", { trig = k, snippetType = "autosnippet" }, v.context),
+			v.command,
+			{ condition = tex.in_math },
+			v.ext or {}
+		)
+	)
+end
+vim.list_extend(M, single_command_math_snippets)
 
 return M

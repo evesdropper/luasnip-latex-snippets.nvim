@@ -48,6 +48,7 @@ M = {
     \label{<>:<>}
     ]],
     { i(1), i(0) })),
+
     autosnippet({ trig='([acCer])ref', name='(acC|eq)?ref', dscr='add a reference (with autoref, cref, eqref)', regTrig = true, hidden = true},
     fmta([[
     \<>ref{<>:<>}
