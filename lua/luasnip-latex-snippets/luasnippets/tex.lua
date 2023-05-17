@@ -25,7 +25,9 @@ local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 
-return {
-    s("test", {t('text')}
+M = {
+    s("test", {t('it works')}
     ),
 }
+
+return M
