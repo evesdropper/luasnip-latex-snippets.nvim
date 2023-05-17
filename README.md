@@ -2,7 +2,7 @@
 
 A set of preconfigured snippets for LaTeX for the snippet engine [LuaSnip](https://github.com/L3MON4D3/LuaSnip).
 
-![demo](/assets/demo.mp4)
+https://github.com/evesdropper/luasnip-latex-snippets.nvim/assets/82856360/8649e3ea-ea81-4f80-aa28-dc9c51cd4642
 
 ## Installation
 
