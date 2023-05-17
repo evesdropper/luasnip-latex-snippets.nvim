@@ -28,6 +28,11 @@ local ms = ls.multi_snippet
 M = {
     s("test", {t('it works')}
     ),
+    autosnippet({ trig='alab', name='label', dscr='add a label'},
+    fmta([[
+    \label{<>:<>}
+    ]],
+    { i(1), i(0) })),
 }
 
 return M
