@@ -26,7 +26,7 @@ local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" })
-local tex = require("luasnip-latex-snippets.snippets.tex.utils").conditions
+local tex = require("luasnip-latex-snippets.luasnippets.tex.utils").conditions
 
 local reference_snippet_table = {
     a = "auto",
