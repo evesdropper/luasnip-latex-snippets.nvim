@@ -24,6 +24,7 @@ local postfix = require("luasnip.extras.postfix").postfix
 local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
+local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" })
 
 M = {
     s("test", {t('it works')}
