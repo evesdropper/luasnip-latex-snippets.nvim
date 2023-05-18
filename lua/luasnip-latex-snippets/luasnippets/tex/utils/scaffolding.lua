@@ -32,6 +32,22 @@ local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" }
 
 M = {}
 
+-- postfix helper function - generates dynamic node
+local generate_postfix_dynamicnode = function(_, parent, _, user_arg1, user_arg2)
+    local capture = parent.snippet.env.POSTFIX_MATCH
+    if #capture > 0 then
+        return sn(nil, fmta([[
+        <><><><>
+        ]],
+        {t(user_arg1), t(capture), t(user_arg2), i(0)}))
+    else
+        local visual_placeholder = parent.snippet.env.SELECT_RAW
+        return sn(nil, fmta([[
+        <><><><>
+        ]],
+        {t(user_arg1), i(1, visual_placeholder), t(user_arg2), i(0)}))
+    end
+end
 
 -- visual util to add insert node - thanks ejmastnak!
 M.get_visual = function(args, parent)
@@ -104,6 +120,20 @@ M.single_command_snippet = function(context, command, opts, ext)
 		fmta(command .. [[<>{<>}<><>]], { cnode or t(""), i(1 + (offset or 0)), (lnode or t("")), i(0) }),
 		opts
 	)
+end
+
+M.postfix_snippet = function (context, command, opts)
+    opts = opts or {}
+	if not context.trig then
+		error("context doesn't include a `trig` key which is mandatory", 2)
+	end
+	if not context.trig then
+		error("context doesn't include a `trig` key which is mandatory", 2)
+	end
+	context.dscr = context.dscr
+	context.name = context.name or context.dscr
+    context.docstring = command.pre .. [[(POSTFIX_MATCH|VISUAL|<1>)]] .. command.post
+    return postfix(context, {d(1, generate_postfix_dynamicnode, {}, { user_args = {command.pre, command.post} })}, opts)
 end
 
 return M

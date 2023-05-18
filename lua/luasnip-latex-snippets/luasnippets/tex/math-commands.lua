@@ -36,6 +36,7 @@ local tex = require("luasnip-latex-snippets.luasnippets.tex.utils.conditions")
 local auto_backslash_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").auto_backslash_snippet
 local symbol_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").symbol_snippet
 local single_command_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").single_command_snippet
+local postfix_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").postfix_snippet
 
 M = {
     -- superscripts
@@ -338,5 +339,92 @@ for k, v in pairs(single_command_math_specs) do
 	)
 end
 vim.list_extend(M, single_command_math_snippets)
+
+local postfix_math_specs = {
+    mbb = {
+        context = {
+            name = "mathbb",
+            dscr =  "math blackboard bold",
+        },
+        command = {
+            pre = [[\mathbb{]],
+            post = [[}]],
+        }
+    },
+    mcal = {
+        context = {
+            name = "mathcal",
+            dscr =  "math calligraphic",
+        },
+        command = {
+            pre = [[\mathcal{]],
+            post = [[}]],
+        }
+    },
+    mscr = {
+        context = {
+            name = "mathscr",
+            dscr =  "math script",
+        },
+        command = {
+            pre = [[\mathscr{]],
+            post = [[}]],
+        },
+    },
+    mfr = {
+        context = {
+            name = "mathfrak",
+            dscr =  "mathfrak",
+        },
+        command = {
+            pre = [[\mathfrak{]],
+            post = [[}]],
+        },
+    },
+    hat = {
+		context = {
+			name = "hat",
+			dscr = "hat",
+		},
+		command = {
+            pre = [[\hat{]],
+            post = [[}]],
+        }
+	},
+	bar = {
+		context = {
+			name = "bar",
+			dscr = "bar (overline)",
+		},
+		command = {
+            pre = [[\overline{]],
+            post = [[}]]
+        }
+	},
+	tld = {
+		context = {
+			name = "tilde",
+            priority = 500,
+			dscr = "tilde",
+		},
+		command = {
+            pre = [[\tilde{]],
+            post = [[}]]
+        }
+	}
+}
+
+local postfix_math_snippets = {}
+for k, v in pairs(postfix_math_specs) do
+table.insert(
+    postfix_math_snippets,
+    postfix_snippet(
+        vim.tbl_deep_extend("keep", { trig = k, snippetType = "autosnippet" }, v.context),
+        v.command,
+        { condition = tex.in_math }
+    )
+)
+end
+vim.list_extend(M, postfix_math_snippets)
 
 return M
