@@ -73,7 +73,7 @@ local generate_cases = function(args, snip)
 		table.insert(nodes, t({ "\\\\", "" }))
 	end
 	-- fix last node.
-	nodes[#nodes] = t("\\\\")
+    table.remove(nodes, #nodes)
 	return sn(nil, nodes)
 end
 

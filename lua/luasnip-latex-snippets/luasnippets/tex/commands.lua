@@ -45,18 +45,18 @@ local reference_snippet_table = {
 M = {
     autosnippet({ trig='alab', name='label', dscr='add a label'},
     fmta([[
-    \label{<>:<>}
+    \label{<>:<>}<>
     ]],
-    { i(1), i(0) })),
+    { i(1), i(2), i(0) })),
 
     autosnippet({ trig='([acCer])ref', name='(acC|eq)?ref', dscr='add a reference (with autoref, cref, eqref)', regTrig = true, hidden = true},
     fmta([[
-    \<>ref{<>:<>}
+    \<>ref{<>:<>}<>
     ]],
     { f(function (_, snip)
         return reference_snippet_table[snip.captures[1]]
     end),
-    i(1), i(0) }),
+    i(1), i(2), i(0) }),
     { condition = tex.in_text, show_condition = tex.in_text }),
 }
 
@@ -144,6 +144,15 @@ local single_command_specs = {
 		},
 		command = [[\textit]],
 	},
+    ttt = {
+		context = {
+			name = "texttt",
+			dscr = "monospace text",
+			hidden = true,
+		},
+		command = [[\texttt]],
+	},
+
 	sc = {
 		context = {
 			name = "textsc",
