@@ -56,6 +56,22 @@ M = {
     { t("^{-1}") },
     { condition = tex.in_math, show_condition = tex.in_math }),
 
+    -- fractions
+    autosnippet({ trig='//', name='fraction', dscr="fraction (general)"},
+    fmta([[
+    \frac{<>}{<>}<>
+    ]],
+    { i(1), i(2), i(0) }),
+    { condition = tex.in_math, show_condition = tex.in_math }),
+    autosnippet({ trig='(%d+)/', name='fraction', dscr='auto fraction 1', regTrig = true, hidden = true},
+    fmta([[
+    \frac{<>}{<>}<>
+    ]],
+    { f(function (_, snip)
+        return snip.captures[1]
+    end), i(1), i(0) }),
+    { condition = tex.in_math, show_condition = tex.in_math }),
+
 	autosnippet({ trig = "lim", name = "lim(sup|inf)", dscr = "lim(sup|inf)" },
     fmta([[ 
     \lim<><><>
