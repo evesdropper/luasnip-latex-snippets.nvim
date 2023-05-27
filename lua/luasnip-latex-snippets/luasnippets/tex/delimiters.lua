@@ -54,18 +54,12 @@ M = {
     \left<> <> \right<><>
     ]],
 	{f(function(_, snip)
-        cap = snip.captures[1]
-        if brackets[cap] == nil then
-            cap = "p"
-        end -- set default to parentheses
+        cap = snip.captures[1] or 'p'
         return brackets[cap][1]
     end),
     d(1, scaffolding.get_visual),
     f(function(_, snip)
-        cap = snip.captures[1]
-        if brackets[cap] == nil then
-            cap = "p"
-        end
+        cap = snip.captures[1] or 'p'
         return brackets[cap][2]
     end),
     i(0)}),
