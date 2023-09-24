@@ -67,7 +67,17 @@ M.auto_backslash_snippet = function(context, opts)
 	context.dscr = context.dscr or (context.trig .. "with automatic backslash")
 	context.name = context.name or context.trig
 	context.docstring = context.docstring or ([[\]] .. context.trig)
-	return autosnippet(context, t([[\]] .. context.trig), opts)
+    context.trigEngine = "ecma"
+    context.trig = "(?<!\\\\)" .. "(" .. context.trig .. ")"
+	return autosnippet(context,
+    fmta([[
+    \<><>
+    ]],
+    { f(function(_, snip)
+        return snip.captures[1]
+    end),
+    i(0) }),
+    opts)
 end
 
 -- Auto symbol
