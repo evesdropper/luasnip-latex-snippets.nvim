@@ -49,7 +49,7 @@ M = {
     ]],
     { i(1), i(2), i(0) })),
 
-    autosnippet({ trig='([acCer])ref', name='(acC|eq)?ref', dscr='add a reference (with autoref, cref, eqref)', regTrig = true, hidden = true},
+    autosnippet({ trig='([acCer])ref', name='(acC|eq)?ref', dscr='add a reference (with autoref, cref, eqref)', trigEngine = "pattern", hidden = true},
     fmta([[
     \<>ref{<>:<>}<>
     ]],

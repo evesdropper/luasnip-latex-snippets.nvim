@@ -63,7 +63,7 @@ M = {
     ]],
     { i(1), i(2), i(0) }),
     { condition = tex.in_math, show_condition = tex.in_math }),
-    autosnippet({ trig='(%d+)/', name='fraction', dscr='auto fraction 1', regTrig = true, hidden = true},
+    autosnippet({ trig="((\\d+)|(\\d*)(\\\\)?([A-Za-z]+)((\\^|_)(\\{\\d+\\}|\\d))*)\\/", name='fraction', dscr='auto fraction 1', trigEngine="ecma"},
     fmta([[
     \frac{<>}{<>}<>
     ]],
