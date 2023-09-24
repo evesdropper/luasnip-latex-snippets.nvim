@@ -102,11 +102,11 @@ M = {
 	{ c(1, {fmta([[_{<>}^{<>}]], {i(1, "i = 0"), i(2, "\\infty")}), t("")}), i(0) }),
 	{ condition = tex.in_math, show_condition = tex.in_math }),
 
-	autosnippet({ trig = "set", name = "set", dscr = "set" }, -- overload with set builder notation
+	autosnippet({ trig = "set", name = "set", dscr = "set" }, -- overload with set builders notation because analysis and algebra cannot agree on a singular notation
 	fmta([[
     \{<>\}<>
     ]],
-	{ c(1, { r(1, ""), sn(nil, { r(1, ""), t(" \\mid "), i(2) }) }), i(0) }),
+	{ c(1, { r(1, ""), sn(nil, { r(1, ""), t(" \\mid "), i(2) }), sn(nil, { r(1, ""), t(" \\colon "), i(2) })}), i(0) }),
 	{ condition = tex.in_math, show_condition = tex.in_math }),
 
 	autosnippet({ trig = "nnn", name = "bigcap", dscr = "bigcap" },
@@ -129,6 +129,13 @@ M = {
     ]],
     { i(1), i(2), i(0) }),
 	{ condition = tex.in_math, show_condition = tex.in_math }),
+
+    autosnippet({ trig='pd', name='partial', dscr='partial derivative'},
+    fmta([[
+    \frac{\partial <>}{\partial <>}<>
+    ]],
+    { i(1), i(2), i(0) }),
+    { condition = tex.in_math, show_condition = tex.in_math }),
 }
 
 -- Auto backslashes
