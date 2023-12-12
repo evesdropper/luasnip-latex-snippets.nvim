@@ -2,7 +2,7 @@
 
 Temp snippet document until I get a solution made with LuaSnip's `snippet_list`. It may be a bit terse, so feel free to make an issue or reformat it.
 
-> **Warning:** Most snippets require [VimTeX](https://github.com/lervag/vimtex) for the condition/show-condition to work.
+> :warning: **Warning:** As mentioned in the README, most snippets require [VimTeX](https://github.com/lervag/vimtex) for the condition/show-condition to work.
 
 ## `commands.lua`
 
