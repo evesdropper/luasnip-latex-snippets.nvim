@@ -162,6 +162,8 @@ local auto_backslash_specs = {
 	"min",
 	"argmax",
 	"argmin",
+    "deg",
+    "angle",
 }
 
 local auto_backslash_snippets = {}
@@ -175,7 +177,8 @@ vim.list_extend(M, auto_backslash_snippets)
 local greek_specs = {
 	alpha = { context = { name = "α" }, command = [[\alpha]] },
 	beta = { context = { name = "β" }, command = [[\beta]] },
-	gam = { context = { name = "β" }, command = [[\gamma]] },
+	gam = { context = { name = "γ" }, command = [[\gamma]] },
+	Gam = { context = { name = "Γ" }, command = [[\Gamma]] },
 	omega = { context = { name = "ω" }, command = [[\omega]] },
 	Omega = { context = { name = "Ω" }, command = [[\Omega]] },
 	delta = { context = { name = "δ" }, command = [[\delta]] },
@@ -187,12 +190,13 @@ local greek_specs = {
 	lmbd = { context = { name = "λ" }, command = [[\lambda]] },
 	Lmbd = { context = { name = "Λ" }, command = [[\Lambda]] },
 	mu = { context = { name = "μ" }, command = [[\mu]] },
-	nu = { context = { name = "μ" }, command = [[\nu]] },
+	nu = { context = { name = "ν" }, command = [[\nu]] },
 	pi = { context = { name = "π" }, command = [[\pi]] },
-	rho = { context = { name = "π" }, command = [[\rho]] },
+	rho = { context = { name = "ρ" }, command = [[\rho]] },
 	sig = { context = { name = "σ" }, command = [[\sigma]] },
 	Sig = { context = { name = "Σ" }, command = [[\Sigma]] },
-	xi = { context = { name = "Σ" }, command = [[\xi]] },
+	tau = { context = { name = "τ" }, command = [[\tau]] },
+	xi = { context = { name = "ξ" }, command = [[\xi]] },
 	vphi = { context = { name = "φ" }, command = [[\varphi]] },
 	veps = { context = { name = "ε" }, command = [[\varepsilon]] },
 }
