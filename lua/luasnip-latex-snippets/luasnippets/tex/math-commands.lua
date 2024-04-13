@@ -38,6 +38,30 @@ local symbol_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.sca
 local single_command_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").single_command_snippet
 local postfix_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").postfix_snippet
 
+-- fractions (parentheses case)
+local generate_fraction = function (_, snip)
+    local stripped = snip.captures[1]
+    local depth = 0
+    local j = #stripped
+    while true do
+        local c = stripped:sub(j, j)
+        if c == "(" then
+            depth = depth + 1
+        elseif c == ")" then
+            depth = depth - 1
+        end
+        if depth == 0 then
+            break
+        end
+        j = j - 1
+    end
+    return sn(nil,
+        fmta([[
+        <>\frac{<>}{<>}
+        ]],
+        { t(stripped:sub(1, j-1)), t(stripped:sub(j)), i(1)}))
+end
+
 M = {
     -- superscripts
     autosnippet({ trig = "sr", wordTrig = false },
@@ -71,6 +95,9 @@ M = {
         return snip.captures[1]
     end), i(1), i(0) }),
     { condition = tex.in_math, show_condition = tex.in_math }),
+    autosnippet({ trig='(^.*\\))/', name='fraction', dscr='auto fraction 2', trigEngine="ecma" },
+    { d(1, generate_fraction) },
+    { condition=tex.in_math, show_condition=tex.in_math }),
 
 	autosnippet({ trig = "lim", name = "lim(sup|inf)", dscr = "lim(sup|inf)" },
     fmta([[ 
