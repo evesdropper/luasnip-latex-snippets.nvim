@@ -32,20 +32,20 @@ local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" }
 
 M = {}
 
--- postfix helper function - generates dynamic node 
+-- postfix helper function - generates dynamic node
 local generate_postfix_dynamicnode = function(_, parent, _, user_arg1, user_arg2)
     local capture = parent.snippet.env.POSTFIX_MATCH
-    if parent.snippet.env.POSTFIX_MATCH == nil then
+    if #capture > 0 then
+        return sn(nil, fmta([[
+        <><><><>
+        ]],
+        {t(user_arg1), t(capture), t(user_arg2), i(0)}))
+    else
         local visual_placeholder = parent.snippet.env.SELECT_RAW
         return sn(nil, fmta([[
         <><><><>
         ]],
         {t(user_arg1), i(1, visual_placeholder), t(user_arg2), i(0)}))
-    else
-        return sn(nil, fmta([[
-        <><><><>
-        ]],
-        {t(user_arg1), t(capture), t(user_arg2), i(0)}))
     end
 end
 
@@ -143,6 +143,7 @@ M.postfix_snippet = function (context, command, opts)
 	context.dscr = context.dscr
 	context.name = context.name or context.dscr
     context.docstring = command.pre .. [[(POSTFIX_MATCH|VISUAL|<1>)]] .. command.post
+    context.match_pattern = [[[%w%.%_%-%"%']*$]]
     return postfix(context, {d(1, generate_postfix_dynamicnode, {}, { user_args = {command.pre, command.post} })}, opts)
 end
 
