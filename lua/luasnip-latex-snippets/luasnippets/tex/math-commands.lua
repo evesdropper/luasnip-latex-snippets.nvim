@@ -173,32 +173,38 @@ end
 vim.list_extend(M, auto_backslash_snippets)
 
 -- Symbols/Commands
--- TODO: fix symbols once font works
 local greek_specs = {
 	alpha = { context = { name = "α" }, command = [[\alpha]] },
 	beta = { context = { name = "β" }, command = [[\beta]] },
 	gam = { context = { name = "γ" }, command = [[\gamma]] },
 	Gam = { context = { name = "Γ" }, command = [[\Gamma]] },
-	omega = { context = { name = "ω" }, command = [[\omega]] },
-	Omega = { context = { name = "Ω" }, command = [[\Omega]] },
 	delta = { context = { name = "δ" }, command = [[\delta]] },
 	DD = { context = { name = "Δ" }, command = [[\Delta]] },
 	eps = { context = { name = "ε" , priority = 500 }, command = [[\epsilon]] },
-	eta = { context = { name = "θ" , priority = 500}, command = [[\eta]] },
-	zeta = { context = { name = "θ" }, command = [[\zeta]] },
+    veps = { context = { name = "ε" }, command = [[\varepsilon]] },
+    zeta = { context = { name = "ζ" }, command = [[\zeta]] },
+	eta = { context = { name = "η" , priority = 500}, command = [[\eta]] },
 	theta = { context = { name = "θ" }, command = [[\theta]] },
+	Theta = { context = { name = "Θ" }, command = [[\Theta]] },
+	iota = { context = { name = "ι" }, command = [[\iota]] },
+	kappa = { context = { name = "κ" }, command = [[\kappa]] },
 	lmbd = { context = { name = "λ" }, command = [[\lambda]] },
 	Lmbd = { context = { name = "Λ" }, command = [[\Lambda]] },
 	mu = { context = { name = "μ" }, command = [[\mu]] },
 	nu = { context = { name = "ν" }, command = [[\nu]] },
+    xi = { context = { name = "ξ" }, command = [[\xi]] },
 	pi = { context = { name = "π" }, command = [[\pi]] },
 	rho = { context = { name = "ρ" }, command = [[\rho]] },
 	sig = { context = { name = "σ" }, command = [[\sigma]] },
 	Sig = { context = { name = "Σ" }, command = [[\Sigma]] },
-	tau = { context = { name = "τ" }, command = [[\tau]] },
-	xi = { context = { name = "ξ" }, command = [[\xi]] },
-	vphi = { context = { name = "φ" }, command = [[\varphi]] },
-	veps = { context = { name = "ε" }, command = [[\varepsilon]] },
+    tau = { context = { name = "τ" }, command = [[\tau]] },
+	ups = { context = { name = "υ" }, command = [[\upsilon]] },
+    phi = { context = { name = "φ" }, command = [[\phi]] },
+    vphi = { context = { name = "φ" }, command = [[\varphi]] },
+    chi = { context = { name = "χ" }, command = [[\chi]] },
+	psi = { context = { name = "Ψ" }, command = [[\psi]] },
+	omega = { context = { name = "ω" }, command = [[\omega]] },
+	Omega = { context = { name = "Ω" }, command = [[\Omega]] },
 }
 
 local greek_snippets = {}
