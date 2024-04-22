@@ -238,7 +238,7 @@ local greek_snippets = {}
 for k, v in pairs(greek_specs) do
 	table.insert(
 		greek_snippets,
-		symbol_snippet(vim.tbl_deep_extend("keep", { trig = k }, v.context), v.command, { condition = tex.in_math })
+		symbol_snippet(vim.tbl_deep_extend("keep", { trig = k }, v.context), v.command, { condition = tex.in_math, backslash = true })
 	)
 end
 vim.list_extend(M, greek_snippets)

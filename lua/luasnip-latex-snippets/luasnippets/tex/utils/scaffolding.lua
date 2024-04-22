@@ -90,6 +90,10 @@ M.symbol_snippet = function(context, command, opts)
 	context.name = context.name or command:gsub([[\]], "")
 	context.docstring = context.docstring or (command .. [[{0}]])
 	context.wordTrig = context.wordTrig or false
+    if opts.backslash == true then
+        context.trigEngine = "ecma"
+        context.trig = "(?<!\\\\)" .. "(" .. context.trig .. ")"
+    end
 	return autosnippet(context, t(command), opts)
 end
 
