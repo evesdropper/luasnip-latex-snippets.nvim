@@ -94,6 +94,7 @@ M.symbol_snippet = function(context, command, opts)
     if j == 2 then -- command always starts with backslash
         context.trigEngine = "ecma"
         context.trig = "(?<!\\\\)" .. "(" .. context.trig .. ")"
+        context.hidden = true
     end
 	return autosnippet(context, t(command), opts)
 end
@@ -133,6 +134,7 @@ M.single_command_snippet = function(context, command, opts, ext)
     if j == 2 then 
         context.trigEngine = "ecma"
         context.trig = "(?<!\\\\)" .. "(" .. context.trig .. ")"
+        context.hidden = true
     end
 	-- stype = ext.stype or s
 	return s(
@@ -158,6 +160,7 @@ M.postfix_snippet = function (context, command, opts)
     if j == 2 then
         context.trigEngine = "ecma"
         context.trig = "(?<!\\\\)" .. "(" .. context.trig .. ")"
+        context.hidden = true
     end
     return postfix(context, {d(1, generate_postfix_dynamicnode, {}, { user_args = {command.pre, command.post} })}, opts)
 end
