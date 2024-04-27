@@ -90,7 +90,8 @@ M.symbol_snippet = function(context, command, opts)
 	context.name = context.name or command:gsub([[\]], "")
 	context.docstring = context.docstring or (command .. [[{0}]])
 	context.wordTrig = context.wordTrig or false
-    if opts.backslash == true then
+    j, _ = string.find(command, context.trig)
+    if j == 2 then -- command always starts with backslash
         context.trigEngine = "ecma"
         context.trig = "(?<!\\\\)" .. "(" .. context.trig .. ")"
     end
@@ -128,6 +129,11 @@ M.single_command_snippet = function(context, command, opts, ext)
 			) })
 	end
 	context.docstring = context.docstring or (command .. docstring)
+    j, _ = string.find(command, context.trig)
+    if j == 2 then 
+        context.trigEngine = "ecma"
+        context.trig = "(?<!\\\\)" .. "(" .. context.trig .. ")"
+    end
 	-- stype = ext.stype or s
 	return s(
 		context,
@@ -148,6 +154,11 @@ M.postfix_snippet = function (context, command, opts)
 	context.name = context.name or context.dscr
     context.docstring = command.pre .. [[(POSTFIX_MATCH|VISUAL|<1>)]] .. command.post
     context.match_pattern = [[[%w%.%_%-%"%']*$]]
+    j, _ = string.find(command.pre, context.trig)
+    if j == 2 then
+        context.trigEngine = "ecma"
+        context.trig = "(?<!\\\\)" .. "(" .. context.trig .. ")"
+    end
     return postfix(context, {d(1, generate_postfix_dynamicnode, {}, { user_args = {command.pre, command.post} })}, opts)
 end
 
