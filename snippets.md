@@ -56,7 +56,9 @@ $0
 - `eqn`: equation(|*)
 
 ### Useful Math Dynamic Snippets
-`[bBpvV]mat(%d)x(%d)(a|r)`: creates a dxd matrix, either augmented or not. Requires [this fix](https://tex.stackexchange.com/a/2238) for augments.
+`[bBpvV]mat(%d)x(%d)(a|r)`: creates a dxd matrix, either augmented or not.
+
+> ℹ️ Note: For the `a` (augmented) option, it requires [this fix](https://tex.stackexchange.com/a/2238) somewhere in your `.tex` file or preamble.
 
 For instance, `bmat2x2r` creates:
 ```tex
