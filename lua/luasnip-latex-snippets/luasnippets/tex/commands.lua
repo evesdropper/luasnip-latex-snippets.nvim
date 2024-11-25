@@ -177,6 +177,13 @@ local single_command_specs = {
 		},
 		command = [[\overline]],
 	},
+    bct = {
+        context = {
+            name = "cite",
+            dscr = "bibtex cite",
+        },
+        command = [[\cite]],
+    },
 }
 
 local single_command_snippets = {}

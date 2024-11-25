@@ -384,6 +384,13 @@ local single_command_math_specs = {
 		command = [[\sqrt]],
 		ext = { choice = true },
 	},
+    bxd = {
+        context = {
+            name = "boxed",
+            dscr = "boxed answer",
+        },
+        command = [[\boxed]],
+    }
 }
 
 local single_command_math_snippets = {}
