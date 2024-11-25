@@ -29,6 +29,7 @@ local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" })
+local helpers = require("snippets.tex.utils.helpers")
 
 M = {}
 
@@ -139,7 +140,7 @@ M.single_command_snippet = function(context, command, opts, ext)
 	-- stype = ext.stype or s
 	return s(
 		context,
-		fmta(command .. [[<>{<>}<><>]], { cnode or t(""), i(1 + (offset or 0)), (lnode or t("")), i(0) }),
+		fmta(command .. [[<>{<>}<><>]], { cnode or t(""), d(1 + (offset or 0), helpers.get_visual), (lnode or t("")), i(0) }),
 		opts
 	)
 end
