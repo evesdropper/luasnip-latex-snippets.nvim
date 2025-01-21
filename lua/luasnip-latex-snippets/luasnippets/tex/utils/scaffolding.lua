@@ -94,7 +94,9 @@ M.symbol_snippet = function(context, command, opts)
     if j == 2 then -- command always starts with backslash
         context.trigEngine = "ecma"
         context.trig = "(?<!\\\\)" .. "(" .. context.trig .. ")"
-        context.hidden = true
+        if context.snippetType == "autosnippet" then
+            context.hidden = true
+        end
     end
 	return autosnippet(context, t(command), opts)
 end
