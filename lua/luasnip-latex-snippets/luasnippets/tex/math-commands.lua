@@ -37,6 +37,7 @@ local auto_backslash_snippet = require("luasnip-latex-snippets.luasnippets.tex.u
 local symbol_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").symbol_snippet
 local single_command_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").single_command_snippet
 local postfix_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").postfix_snippet
+local helpers = require("luasnip-latex-snippets.luasnippets.tex.utils").helpers
 
 -- fractions (parentheses case)
 local generate_fraction = function (_, snip)
@@ -59,7 +60,7 @@ local generate_fraction = function (_, snip)
         fmta([[
         <>\frac{<>}{<>}
         ]],
-        { t(stripped:sub(1, j-1)), t(stripped:sub(j)), i(1)}))
+        { t(stripped:sub(1, j-1)), t(stripped:sub(j+1, -2)), i(1)}))
 end
 
 M = {
@@ -85,7 +86,7 @@ M = {
     fmta([[
     \frac{<>}{<>}<>
     ]],
-    { i(1), i(2), i(0) }),
+    { d(1, helpers.get_visual), i(2), i(0) }),
     { condition = tex.in_math, show_condition = tex.in_math }),
     autosnippet({ trig="((\\d+)|(\\d*)(\\\\)?([A-Za-z]+)((\\^|_)(\\{\\d+\\}|\\d))*)\\/", name='fraction', dscr='auto fraction 1', trigEngine="ecma"},
     fmta([[
@@ -195,7 +196,7 @@ local auto_backslash_specs = {
 
 local auto_backslash_snippets = {}
 for _, v in ipairs(auto_backslash_specs) do
-    table.insert(auto_backslash_snippets, auto_backslash_snippet({ trig = v }, { condition = tex.in_math }))
+    table.insert(auto_backslash_snippets, auto_backslash_snippet({ trig = v }, { condition = tex.in_math, show_condition = tex.in_math }))
 end
 vim.list_extend(M, auto_backslash_snippets)
 
@@ -238,7 +239,7 @@ local greek_snippets = {}
 for k, v in pairs(greek_specs) do
 	table.insert(
 		greek_snippets,
-		symbol_snippet(vim.tbl_deep_extend("keep", { trig = k }, v.context), v.command, { condition = tex.in_math, backslash = true })
+		symbol_snippet(vim.tbl_deep_extend("keep", { trig = k }, v.context), v.command, { condition = tex.in_math, show_condition = tex.in_math, backslash = true })
 	)
 end
 vim.list_extend(M, greek_snippets)
@@ -312,7 +313,7 @@ local symbol_snippets = {}
 for k, v in pairs(symbol_specs) do
 	table.insert(
 		symbol_snippets,
-		symbol_snippet(vim.tbl_deep_extend("keep", { trig = k }, v.context), v.command, { condition = tex.in_math })
+		symbol_snippet(vim.tbl_deep_extend("keep", { trig = k }, v.context), v.command, { condition = tex.in_math, show_condition = tex.in_math })
 	)
 end
 vim.list_extend(M, symbol_snippets)
@@ -400,7 +401,7 @@ for k, v in pairs(single_command_math_specs) do
 		single_command_snippet(
 			vim.tbl_deep_extend("keep", { trig = k, snippetType = "autosnippet" }, v.context),
 			v.command,
-			{ condition = tex.in_math },
+			{ condition = tex.in_math, show_condition = tex.in_math },
 			v.ext or {}
 		)
 	)
@@ -488,7 +489,7 @@ table.insert(
     postfix_snippet(
         vim.tbl_deep_extend("keep", { trig = k, snippetType = "autosnippet" }, v.context),
         v.command,
-        { condition = tex.in_math }
+        { condition = tex.in_math, show_condition = tex.in_math }
     )
 )
 end

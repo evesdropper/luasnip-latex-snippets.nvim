@@ -46,4 +46,8 @@ function M.in_align()
 	return env("align") or env("align*") or env("aligned")
 end
 
+function M.show_line_begin(line_to_cursor)
+    return #line_to_cursor <= 3
+end
+
 return M

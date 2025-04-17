@@ -193,7 +193,7 @@ for k, v in pairs(single_command_specs) do
 		single_command_snippet(
 			vim.tbl_deep_extend("keep", { trig = k }, v.context),
 			v.command,
-			v.opt or { condition = tex.in_text },
+			v.opt or { condition = tex.in_text, show_condition = tex.in_text },
 			v.ext or {}
 		)
 	)

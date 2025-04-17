@@ -85,14 +85,14 @@ M = {
 
     -- generate new bullet points
 	autosnippet({ trig = "--", hidden = true }, { t("\\item") },
-	{ condition = in_bullets_cond * line_begin, show_condition = in_bullets_cond * line_begin }
+	{ condition = in_bullets_cond * line_begin, show_condition = in_bullets_cond * tex.show_line_begin }
 	),
 	autosnippet({ trig = "!-", name = "bullet point", dscr = "bullet point with custom text" },
 	fmta([[ 
     \item [<>]<>
     ]],
 	{ i(1), i(0) }), 	
-	{ condition = in_bullets_cond * line_begin, show_condition = in_bullets_cond * line_begin }
+	{ condition = in_bullets_cond * line_begin, show_condition = in_bullets_cond * tex.show_line_begin }
 	),
 }
 
