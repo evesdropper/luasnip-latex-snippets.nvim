@@ -33,7 +33,7 @@ local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" }
 -- personal imports
 --]
 local tex = require("luasnip-latex-snippets.luasnippets.tex.utils.conditions")
-local scaffolding = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding")
+local get_visual = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").get_visual
 
 -- brackets
 local brackets = {
@@ -57,7 +57,7 @@ M = {
         cap = snip.captures[1] or 'p'
         return brackets[cap][1]
     end),
-    d(1, scaffolding.get_visual),
+    d(1, get_visual),
     f(function(_, snip)
         cap = snip.captures[1] or 'p'
         return brackets[cap][2]
