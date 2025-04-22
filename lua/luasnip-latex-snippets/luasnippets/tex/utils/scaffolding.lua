@@ -29,7 +29,6 @@ local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local autosnippet = ls.extend_decorator.apply(s, { snippetType = "autosnippet" })
-local helpers = require("luasnippets.tex.utils.helpers")
 
 M = {}
 
@@ -61,12 +60,8 @@ local generate_postfix_dynamicnode = function(_, parent, _, user_arg1, user_arg2
 end
 
 -- visual util to add insert node - thanks ejmastnak!
-M.get_visual = function(args, parent)
-	if #parent.snippet.env.SELECT_RAW > 0 then
-		return sn(nil, i(1, parent.snippet.env.SELECT_RAW))
-	else -- If SELECT_RAW is empty, return a blank insert node
-		return sn(nil, i(1))
-	end
+M.get_visual = function(_, parent)
+    return sn(nil, i(1, parent.snippet.env.SELECT_RAW))
 end
 
 -- Auto backslash - thanks kunzaatko! (ref: https://github.com/kunzaatko/nvim-dots/blob/trunk/lua/snippets/tex/utils/snippet_templates.lua)
@@ -158,7 +153,7 @@ M.single_command_snippet = function(context, command, opts, ext)
 		context,
 		fmta(
 			command .. [[<>{<>}<><>]],
-			{ cnode or t(""), d(1 + (offset or 0), helpers.get_visual), (lnode or t("")), i(0) }
+			{ cnode or t(""), d(1 + (offset or 0), get_visual), (lnode or t("")), i(0) }
 		),
 		opts
 	)

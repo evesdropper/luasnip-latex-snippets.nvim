@@ -37,7 +37,7 @@ local auto_backslash_snippet = require("luasnip-latex-snippets.luasnippets.tex.u
 local symbol_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").symbol_snippet
 local single_command_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").single_command_snippet
 local postfix_snippet = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").postfix_snippet
-local helpers = require("luasnip-latex-snippets.luasnippets.tex.utils").helpers
+local get_visual = require("luasnip-latex-snippets.luasnippets.tex.utils.scaffolding").get_visual
 
 -- fractions (parentheses case)
 local generate_fraction = function (_, snip)
@@ -86,7 +86,7 @@ M = {
     fmta([[
     \frac{<>}{<>}<>
     ]],
-    { d(1, helpers.get_visual), i(2), i(0) }),
+    { d(1, get_visual), i(2), i(0) }),
     { condition = tex.in_math, show_condition = tex.in_math }),
     autosnippet({ trig="((\\d+)|(\\d*)(\\\\)?([A-Za-z]+)((\\^|_)(\\{\\d+\\}|\\d))*)\\/", name='fraction', dscr='auto fraction 1', trigEngine="ecma"},
     fmta([[
