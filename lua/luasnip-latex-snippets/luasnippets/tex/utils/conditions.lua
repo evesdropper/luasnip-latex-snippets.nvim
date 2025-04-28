@@ -4,15 +4,17 @@
 
 local M = {}
 
+local ts = require("luasnip-latex-snippets.luasnippets.tex.utils.ts_utils")
+
 -- math / not math zones
 
 function M.in_math()
-    return vim.api.nvim_eval("vimtex#syntax#in_mathzone()") == 1
+    return ts.in_mathzone()
 end
 
 -- comment detection
 function M.in_comment()
-	return vim.fn["vimtex#syntax#in_comment"]() == 1
+    return ts.in_comment()
 end
 
 -- document class
